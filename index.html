@@ -44,7 +44,12 @@
     .small-btn{padding:10px 14px;font-size:.86rem;margin-top:14px}
     @media(max-width:850px){.hero-grid,.app{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.steps{grid-template-columns:repeat(3,1fr)}.impact{grid-template-columns:1fr 1fr}.links{display:none}.menu{display:block}}
     @media(max-width:560px){.cards{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.hero{padding-top:48px}.orbit{height:270px}}
-  </style>
+  
+.match-card{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px 0;border-bottom:1px solid #edf0ed}
+.match-card:last-child{border-bottom:0}.match-info{flex:1}.match-title{font-weight:800}.match-desc{display:block;color:var(--muted);font-size:.82rem;margin-top:4px}
+.match-score{font-weight:900;color:#087443;font-size:1.05rem}.match-bar{height:7px;background:#edf1ec;border-radius:99px;margin-top:8px;overflow:hidden}.match-bar>span{display:block;height:100%;background:linear-gradient(90deg,#16794c,#8fbe63);border-radius:99px}
+.why-btn{border:1px solid #dfe8df;background:#fff;padding:8px 11px;border-radius:10px;font:inherit;font-size:.76rem;font-weight:700;cursor:pointer;margin-top:8px}
+</style>
 </head>
 <body>
 <nav><div class="container navin">
@@ -85,7 +90,7 @@
 <article class="card challenge"><span class="emoji">🌎</span><div><span class="badge">JUNÍN</span><h3>Reto Junín sostenible</h3><p>Investiga un problema ambiental de tu comunidad y plantea una solución.</p></div></article>
 </div></div></section>
 
-<section id="demo" class="demo"><div class="container"><div class="section-head"><span class="kicker">Prototipo interactivo</span><h2>Así podría verse EQUA AI por dentro</h2><p>Ahora puedes crear un perfil de demostración: ingresa un nombre, responde el cuestionario y observa cómo cambian tus fortalezas e intereses. Los datos permanecen solo en tu navegador.</p></div>
+<section id="demo" class="demo"><div class="container"><div class="section-head"><span class="kicker">Prototipo interactivo</span><h2>Así podría verse EQUA AI por dentro</h2><p>Crea tu perfil y descubre cómo EQUA AI podría comparar fortalezas, intereses y roles para sugerir compañeros complementarios. Las coincidencias son una simulación educativa y los datos permanecen solo en tu navegador.</p></div>
 <div class="app">
   <div class="panel" id="profilePanel">
   <div class="profile"><div class="avatar">👩‍🎓</div><div><p class="profile-name" id="profileName">Tu perfil estudiantil</p><div class="profile-sub" id="profileMeta">Completa el cuestionario · EQUA AI</div></div></div>
@@ -100,11 +105,11 @@
   <button class="btn primary small-btn" id="quiz2">🌟 Crear / actualizar mi perfil</button>
   <p class="profile-note">🔒 En este prototipo, los datos se guardan solo en este navegador mediante almacenamiento local. No se envían a un servidor.</p>
 </div>
-  <div class="panel"><h3 style="margin-top:0">🤝 Mis coincidencias</h3>
-    <div class="match"><div><strong>Diego · Tecnología</strong><div style="color:var(--muted);font-size:.83rem">Análisis de datos · herramientas digitales</div><div class="bar"><i style="width:92%"></i></div></div><div class="score">92%</div></div>
-    <div class="match"><div><strong>Valeria · Creatividad</strong><div style="color:var(--muted);font-size:.83rem">Diseño · comunicación</div><div class="bar"><i style="width:87%"></i></div></div><div class="score">87%</div></div>
-    <div class="match"><div><strong>Lucía · Ciencias</strong><div style="color:var(--muted);font-size:.83rem">Investigación · ciencias</div><div class="bar"><i style="width:81%"></i></div></div><div class="score">81%</div></div>
-    <p style="font-size:.82rem;color:var(--muted);margin-top:17px">💡 La compatibilidad es una simulación para mostrar cómo la IA podría explicar sus recomendaciones.</p>
+  <div class="panel" id="matchesPanel">
+    <div class="profile"><div class="avatar">🤝</div><div><strong>Mis coincidencias</strong><div style="color:var(--muted);font-size:.86rem">Compañeros sugeridos por EQUA AI</div></div></div>
+    <div id="matchesList"></div>
+    <div id="matchExplanation" class="result" style="display:none"></div>
+    <p class="profile-note">💡 La compatibilidad es una simulación educativa. En una versión futura, un algoritmo real podría comparar intereses, fortalezas y roles para formar equipos complementarios.</p>
   </div>
 </div></div></section>
 
@@ -210,6 +215,51 @@ const savedProfile=JSON.parse(localStorage.getItem('equaProfile')||'null');
 if(savedProfile) renderProfile(savedProfile);
 
 document.querySelector('.menu').addEventListener('click',()=>document.querySelector('.links').style.display='flex');
+
+const matchProfiles = [
+  {name:'Diego', talent:'Tecnología', desc:'Análisis de datos · herramientas digitales', interests:['Manejo de residuos','Cuidado del agua'], complement:['Investigación','Tecnología']},
+  {name:'Valeria', talent:'Creatividad', desc:'Diseño · comunicación', interests:['Áreas verdes','Participación ambiental'], complement:['Creatividad','Comunicación']},
+  {name:'Lucía', talent:'Ciencias', desc:'Investigación · ciencias', interests:['Cuidado del agua','Áreas verdes'], complement:['Investigación','Ciencias']}
+];
+
+function calculateMatches(profile){
+  const interest = profile?.interest || 'Cuidado del agua';
+  const skill = profile?.skill || 'Investigación';
+  const role = profile?.role || 'Investigación';
+  return matchProfiles.map((p,i)=>{
+    let score = 72 + (i===0?7:i===1?3:0);
+    if(p.interests.includes(interest)) score += 8;
+    if(p.complement.includes(skill)) score += 5;
+    if(p.complement.includes(role)) score += 4;
+    if(skill === p.talent) score -= 6;
+    return {...p,score:Math.min(97,score)};
+  }).sort((a,b)=>b.score-a.score);
+}
+
+function renderMatches(){
+  const profile=JSON.parse(localStorage.getItem('equaProfile')||'null');
+  const matches=calculateMatches(profile);
+  document.getElementById('matchesList').innerHTML=matches.map((m,i)=>`
+    <div class="match-card">
+      <div class="match-info">
+        <div class="match-title">${m.name} · ${m.talent}</div>
+        <span class="match-desc">${m.desc}</span>
+        <div class="match-bar"><span style="width:${m.score}%"></span></div>
+        <button class="why-btn" data-match="${i}">💡 ¿Por qué esta coincidencia?</button>
+      </div>
+      <div class="match-score">${m.score}%</div>
+    </div>`).join('');
+  document.querySelectorAll('.why-btn').forEach(btn=>btn.addEventListener('click',()=>{
+    const m=matches[Number(btn.dataset.match)];
+    const name=profile?.name || 'este estudiante';
+    const interest=profile?.interest || 'el cuidado ambiental';
+    const box=document.getElementById('matchExplanation');
+    box.style.display='block';
+    box.innerHTML=`<strong>🤖 Explicación de EQUA AI</strong><br>${name} tiene interés en <strong>${interest}</strong>. ${m.name} aporta fortalezas de <strong>${m.talent}</strong>, por lo que la combinación podría ayudar a repartir tareas y construir una solución más completa.`;
+  }));
+}
+renderMatches();
+window.addEventListener('storage', renderMatches);
 </script>
 </body>
 </html>
