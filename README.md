@@ -1,7 +1,11 @@
-# EQUA AI v2
+# EQUA AI v3 — Nivel 2
 
-Prototipo escolar de EQUA AI para Santa Bárbara de Sicaya.
+Perfil estudiantil funcional para el prototipo escolar.
 
-Incluye mejoras de identidad regional, navegación, cuestionario demostrativo con resultado, visión de crecimiento y métricas marcadas como ejemplos.
+- Nombre y grado.
+- Fortalezas estimadas a partir de respuestas.
+- Interés ambiental.
+- Barras de perfil dinámicas.
+- Guardado local en el navegador (localStorage).
 
-Las cuentas, base de datos, IA real y comunicación entre estudiantes requerirán backend y controles de privacidad antes de un uso real.
+No existe inicio de sesión ni base de datos. Los datos no se envían a un servidor.

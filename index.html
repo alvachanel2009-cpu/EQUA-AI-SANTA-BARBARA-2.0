@@ -37,6 +37,11 @@
     .cta{background:var(--green);color:#fff;border-radius:28px;padding:40px}.cta p{color:#dcefe3}.cta .secondary{background:#fff;border:0}
     footer{background:#10271e;color:#c5d3cc;padding:35px 0}.footerin{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footerin strong{color:#fff}
     dialog{border:0;border-radius:24px;padding:0;width:min(620px,92%);box-shadow:0 25px 80px #0005}dialog::backdrop{background:#0b221899}.modal{padding:28px}.close{float:right;border:0;background:#edf3ee;border-radius:50%;width:34px;height:34px;cursor:pointer}.quiz-q{margin:20px 0}.option{display:block;width:100%;text-align:left;background:#f5f8f4;border:1px solid #dfe8df;padding:12px;border-radius:12px;margin:8px 0;cursor:pointer}.option:hover{border-color:#8cbd6a}.result{margin-top:18px;padding:15px;background:#edf6e8;border-radius:15px;display:none}
+    .profile-name{font-size:1.12rem;margin:0}.profile-sub{color:var(--muted);font-size:.86rem;margin-top:3px}
+    .skill-row{margin:13px 0}.skill-top{display:flex;justify-content:space-between;font-size:.84rem;font-weight:700;margin-bottom:6px}.skill-track{height:9px;background:#edf1ec;border-radius:99px;overflow:hidden}.skill-fill{height:100%;background:linear-gradient(90deg,#1b704a,#8fbe63);border-radius:99px}
+    .profile-note{font-size:.78rem;color:var(--muted);margin-top:15px;line-height:1.45}
+    .field{width:100%;box-sizing:border-box;border:1px solid #dfe8df;padding:12px;border-radius:12px;margin:7px 0;background:#fff;font:inherit}
+    .small-btn{padding:10px 14px;font-size:.86rem;margin-top:14px}
     @media(max-width:850px){.hero-grid,.app{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.steps{grid-template-columns:repeat(3,1fr)}.impact{grid-template-columns:1fr 1fr}.links{display:none}.menu{display:block}}
     @media(max-width:560px){.cards{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.hero{padding-top:48px}.orbit{height:270px}}
   </style>
@@ -80,9 +85,21 @@
 <article class="card challenge"><span class="emoji">🌎</span><div><span class="badge">JUNÍN</span><h3>Reto Junín sostenible</h3><p>Investiga un problema ambiental de tu comunidad y plantea una solución.</p></div></article>
 </div></div></section>
 
-<section id="demo" class="demo"><div class="container"><div class="section-head"><span class="kicker">Prototipo interactivo</span><h2>Así podría verse EQUA AI por dentro</h2><p>Esta demostración representa las funciones principales de la propuesta. Los datos son ficticios y no se guardan.</p></div>
+<section id="demo" class="demo"><div class="container"><div class="section-head"><span class="kicker">Prototipo interactivo</span><h2>Así podría verse EQUA AI por dentro</h2><p>Ahora puedes crear un perfil de demostración: ingresa un nombre, responde el cuestionario y observa cómo cambian tus fortalezas e intereses. Los datos permanecen solo en tu navegador.</p></div>
 <div class="app">
-  <div class="panel"><div class="profile"><div class="avatar">👩‍🎓</div><div><strong>Perfil estudiantil</strong><div style="color:var(--muted);font-size:.88rem">Exploradora ambiental · Junín</div></div></div><hr style="border:0;border-top:1px solid #edf0ed;margin:20px 0"><strong>Mis fortalezas</strong><div style="margin-top:8px"><span class="tag">Comunicación</span><span class="tag">Creatividad</span><span class="tag">Investigación</span><span class="tag">Liderazgo</span></div><h3 style="margin-top:25px">⭐ 240 puntos</h3><p style="color:var(--muted)">Nivel 3 · Ecoinspirador</p><button class="btn primary" id="quiz2">Actualizar mi perfil</button></div>
+  <div class="panel" id="profilePanel">
+  <div class="profile"><div class="avatar">👩‍🎓</div><div><p class="profile-name" id="profileName">Tu perfil estudiantil</p><div class="profile-sub" id="profileMeta">Completa el cuestionario · EQUA AI</div></div></div>
+  <hr style="border:0;border-top:1px solid #edf0ed;margin:20px 0">
+  <strong>Mis fortalezas</strong>
+  <div id="skillsBox">
+    <div class="skill-row"><div class="skill-top"><span>Comunicación</span><span>—</span></div><div class="skill-track"><div class="skill-fill" style="width:0%"></div></div></div>
+    <div class="skill-row"><div class="skill-top"><span>Creatividad</span><span>—</span></div><div class="skill-track"><div class="skill-fill" style="width:0%"></div></div></div>
+    <div class="skill-row"><div class="skill-top"><span>Investigación</span><span>—</span></div><div class="skill-track"><div class="skill-fill" style="width:0%"></div></div></div>
+  </div>
+  <div id="interestBox" style="margin-top:16px"><strong>Mi interés ambiental</strong><p style="color:var(--muted);font-size:.9rem">Aún no seleccionado.</p></div>
+  <button class="btn primary small-btn" id="quiz2">🌟 Crear / actualizar mi perfil</button>
+  <p class="profile-note">🔒 En este prototipo, los datos se guardan solo en este navegador mediante almacenamiento local. No se envían a un servidor.</p>
+</div>
   <div class="panel"><h3 style="margin-top:0">🤝 Mis coincidencias</h3>
     <div class="match"><div><strong>Diego · Tecnología</strong><div style="color:var(--muted);font-size:.83rem">Análisis de datos · herramientas digitales</div><div class="bar"><i style="width:92%"></i></div></div><div class="score">92%</div></div>
     <div class="match"><div><strong>Valeria · Creatividad</strong><div style="color:var(--muted);font-size:.83rem">Diseño · comunicación</div><div class="bar"><i style="width:87%"></i></div></div><div class="score">87%</div></div>
@@ -109,28 +126,89 @@
 
 <footer><div class="container footerin"><div><strong>🌱 EQUA AI</strong><br>Conectando talentos para transformar nuestro ambiente.</div><div>Proyecto educativo · Región Junín, Perú<br><small>Prototipo académico de Educación para el Trabajo</small></div></div></footer>
 
-<dialog id="quiz"><div class="modal"><button class="close" id="close">×</button><span class="kicker">Mini cuestionario</span><h2>Descubre tu perfil EQUA</h2><p style="color:var(--muted)">No es un examen. Sirve para mostrar cómo EQUA AI podría conocer tus fortalezas.</p>
-<div class="quiz-q"><strong>1. ¿Qué actividad disfrutas más?</strong><button class="option" data-v="comunicación">🎤 Explicar ideas o hablar en público</button><button class="option" data-v="creatividad">🎨 Diseñar, dibujar o crear</button><button class="option" data-v="investigación">🔎 Investigar y encontrar información</button><button class="option" data-v="tecnología">💻 Usar tecnología y resolver problemas</button></div>
-<div class="quiz-q"><strong>2. ¿Qué te gustaría mejorar en tu colegio?</strong><button class="option" data-v="residuos">♻️ Manejo de residuos</button><button class="option" data-v="agua">💧 Uso del agua</button><button class="option" data-v="verde">🌳 Áreas verdes</button><button class="option" data-v="comunidad">🌎 Participación ambiental</button></div>
-<div class="result" id="result"></div></div></dialog>
+<dialog id="quiz"><div class="modal"><button class="close" id="close">×</button>
+<span class="kicker">Nivel 2 · Perfil estudiantil</span><h2>Crea tu perfil EQUA 🌱</h2>
+<p style="color:var(--muted)">Este prototipo te permite crear un perfil básico de fortalezas e intereses ambientales.</p>
+<div class="quiz-q"><strong>Antes de empezar</strong>
+<input class="field" id="studentName" maxlength="30" placeholder="Escribe tu nombre o apodo">
+<select class="field" id="studentGrade"><option value="5.º de secundaria">5.º de secundaria</option><option value="4.º de secundaria">4.º de secundaria</option><option value="Otro grado">Otro grado</option></select></div>
+<div class="quiz-q"><strong>1. ¿Qué actividad disfrutas más?</strong>
+<button class="option" data-q="skill" data-v="Comunicación">🎤 Explicar ideas o hablar en público</button>
+<button class="option" data-q="skill" data-v="Creatividad">🎨 Diseñar, dibujar o crear</button>
+<button class="option" data-q="skill" data-v="Investigación">🔎 Investigar y encontrar información</button>
+<button class="option" data-q="skill" data-v="Tecnología">💻 Usar tecnología y resolver problemas</button></div>
+<div class="quiz-q"><strong>2. ¿Qué problema te interesa mejorar?</strong>
+<button class="option" data-q="interest" data-v="Manejo de residuos">♻️ Manejo de residuos</button>
+<button class="option" data-q="interest" data-v="Cuidado del agua">💧 Uso responsable del agua</button>
+<button class="option" data-q="interest" data-v="Áreas verdes">🌳 Áreas verdes y biodiversidad</button>
+<button class="option" data-q="interest" data-v="Participación ambiental">🌎 Participación ambiental</button></div>
+<div class="quiz-q"><strong>3. ¿Qué rol te gustaría asumir en un equipo?</strong>
+<button class="option" data-q="role" data-v="Liderazgo">👑 Coordinar y motivar al equipo</button>
+<button class="option" data-q="role" data-v="Comunicación">📢 Presentar y comunicar las ideas</button>
+<button class="option" data-q="role" data-v="Creatividad">🎨 Proponer ideas y diseñar</button>
+<button class="option" data-q="role" data-v="Investigación">🔬 Investigar y evaluar resultados</button></div>
+<div class="result" id="result"></div>
+<button class="btn primary" id="saveProfile" style="width:100%;margin-top:14px">Guardar mi perfil de demostración</button>
+</div></dialog>
 <script>
 const dialog=document.getElementById('quiz'), result=document.getElementById('result');
-function openQuiz(){dialog.showModal();result.style.display='none'}
+const choices={skill:null,interest:null,role:null};
+
+function renderProfile(data){
+  const name=data.name || 'Tu perfil estudiantil';
+  document.getElementById('profileName').textContent=name;
+  document.getElementById('profileMeta').textContent=data.grade ? `${data.grade} · Santa Bárbara, Sicaya` : 'Completa el cuestionario · EQUA AI';
+  const strengths=[data.skill,data.role].filter(Boolean);
+  const all=['Comunicación','Creatividad','Investigación','Tecnología','Liderazgo'];
+  const scores={};
+  all.forEach(s=>scores[s]=35);
+  strengths.forEach(s=>scores[s]=Math.min(95,(scores[s]||35)+45));
+  const shown=Object.entries(scores).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  document.getElementById('skillsBox').innerHTML=shown.map(([s,n])=>`<div class="skill-row"><div class="skill-top"><span>${s}</span><span>${n}%</span></div><div class="skill-track"><div class="skill-fill" style="width:${n}%"></div></div></div>`).join('');
+  document.getElementById('interestBox').innerHTML=data.interest ? `<strong>Mi interés ambiental</strong><p style="margin:8px 0 0"><span class="tag">🌱 ${data.interest}</span></p>` : '<strong>Mi interés ambiental</strong><p style="color:var(--muted);font-size:.9rem">Aún no seleccionado.</p>';
+}
+
+function openQuiz(){
+  const saved=JSON.parse(localStorage.getItem('equaProfile')||'null');
+  if(saved){
+    document.getElementById('studentName').value=saved.name||'';
+    document.getElementById('studentGrade').value=saved.grade||'5.º de secundaria';
+    choices.skill=saved.skill||null; choices.interest=saved.interest||null; choices.role=saved.role||null;
+  }
+  document.querySelectorAll('.option').forEach(b=>{
+    const active=choices[b.dataset.q]===b.dataset.v;
+    b.style.borderColor=active?'#16794c':'#dfe8df';
+    b.style.background=active?'#edf6e8':'#f5f8f4';
+  });
+  result.style.display='none'; dialog.showModal();
+}
 document.querySelectorAll('#startQuiz,#quiz2,#startQuiz2').forEach(b=>b.addEventListener('click',openQuiz));
 document.getElementById('close').onclick=()=>dialog.close();
-let selected=[];
+
 document.querySelectorAll('.option').forEach(b=>b.addEventListener('click',()=>{
-  const q=b.closest('.quiz-q');
-  q.querySelectorAll('.option').forEach(x=>{x.style.borderColor='#dfe8df';x.style.background='#f5f8f4'});
-  b.style.borderColor='#16794c';b.style.background='#edf6e8';
-  selected.push(b.dataset.v);
-  if(selected.length>=2){
-    const p={comunicación:['Comunicación','campañas'],creatividad:['Creatividad','diseño'],investigación:['Investigación','medición'],tecnología:['Tecnología','soluciones digitales'],residuos:['Residuos','reciclaje'],agua:['Agua','ahorro'],verde:['Áreas verdes','biodiversidad'],comunidad:['Participación ambiental','organización']};
-    const a=p[selected[0]]||p['comunicación'], r=p[selected[selected.length-1]]||p['residuos'];
-    result.style.display='block';
-    result.innerHTML=`🌱 <strong>Perfil sugerido: ${a[0]}</strong><br>Tus respuestas muestran afinidad con <strong>${a[1]}</strong> y con acciones de <strong>${r[0]}</strong>.<br>💡 Una versión completa recomendaría compañeros y un reto según tus resultados.<br><small>Esta es una demostración del prototipo; no guarda tus respuestas.</small>`;
-  }
+  choices[b.dataset.q]=b.dataset.v;
+  document.querySelectorAll(`.option[data-q="${b.dataset.q}"]`).forEach(x=>{x.style.borderColor='#dfe8df';x.style.background='#f5f8f4'});
+  b.style.borderColor='#16794c'; b.style.background='#edf6e8';
 }));
+
+document.getElementById('saveProfile').onclick=()=>{
+  const name=document.getElementById('studentName').value.trim();
+  if(!name || !choices.skill || !choices.interest || !choices.role){
+    result.style.display='block';
+    result.innerHTML='⚠️ <strong>Completa tu nombre y selecciona una respuesta en las tres preguntas.</strong>';
+    return;
+  }
+  const data={name,grade:document.getElementById('studentGrade').value,skill:choices.skill,interest:choices.interest,role:choices.role};
+  localStorage.setItem('equaProfile',JSON.stringify(data));
+  renderProfile(data);
+  result.style.display='block';
+  result.innerHTML=`🌱 <strong>¡Perfil creado!</strong><br>${name}, EQUA AI identificó afinidad con <strong>${data.skill}</strong> y <strong>${data.role}</strong>. Tu interés ambiental principal es <strong>${data.interest}</strong>.<br><small>Esta evaluación es una demostración educativa, no un diagnóstico real.</small>`;
+  setTimeout(()=>dialog.close(),2200);
+};
+
+const savedProfile=JSON.parse(localStorage.getItem('equaProfile')||'null');
+if(savedProfile) renderProfile(savedProfile);
+
 document.querySelector('.menu').addEventListener('click',()=>document.querySelector('.links').style.display='flex');
 </script>
 </body>
