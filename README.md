@@ -1,12 +1,15 @@
-# EQUA AI v5 — Nivel 4
+# EQUA AI v6 — Nivel 5
 
-Módulo de trabajo colaborativo del prototipo escolar.
+Panel de impacto ambiental para el prototipo escolar.
 
-- Forma un equipo de hasta 4 integrantes.
-- Añade compañeros de las coincidencias.
-- Selecciona un reto ambiental.
-- Define nombre y meta del proyecto.
-- Genera un plan inicial con investigación, diseño, organización y evaluación.
-- Guarda equipo, reto y proyecto localmente en el navegador.
+Funciones:
+- Registra kg de residuos recuperados.
+- Registra litros de agua ahorrados.
+- Registra plantas o árboles cuidados.
+- Registra participantes.
+- Registra porcentaje de avance.
+- Muestra indicadores y una visualización de barras.
+- Vincula el panel con el proyecto creado en el Nivel 4.
+- Guarda los datos en localStorage del navegador.
 
-La generación del plan es una simulación local; no usa una API externa ni una base de datos.
+Nota: esta versión es un prototipo local. Para que los datos de distintos estudiantes se compartan, el siguiente paso sería incorporar una base de datos y autenticación.

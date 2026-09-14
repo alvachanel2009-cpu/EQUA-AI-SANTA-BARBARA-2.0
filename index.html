@@ -65,6 +65,24 @@
 .field-label{display:block;font-size:.78rem;font-weight:800;margin-bottom:5px}
 .team-empty{padding:22px 8px;text-align:center;color:var(--muted);font-size:.88rem}
 @media(max-width:760px){.team-builder,.project-row{grid-template-columns:1fr}.reto-grid{grid-template-columns:1fr}}
+
+.impact-dashboard{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:22px}
+.impact-card{background:#fff;border:1px solid #e1e9e1;border-radius:16px;padding:20px}
+.metric-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:15px}
+.metric{border:1px solid #e7eee6;border-radius:14px;padding:14px;background:#fbfcfa}
+.metric-icon{font-size:1.3rem}.metric-value{font-size:1.45rem;font-weight:900;margin-top:5px}.metric-label{font-size:.78rem;color:var(--muted)}
+.progress-wrap{margin-top:18px}.progress-label{display:flex;justify-content:space-between;font-size:.8rem;font-weight:800}
+.progress-track{height:11px;background:#e9efe8;border-radius:99px;overflow:hidden;margin-top:7px}.progress-track span{display:block;height:100%;background:linear-gradient(90deg,#16794c,#8fbe63);border-radius:99px;width:0;transition:width .4s}
+.impact-form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px}
+.impact-field label{display:block;font-size:.78rem;font-weight:800;margin-bottom:5px}
+.impact-field input{width:100%;box-sizing:border-box;padding:10px;border:1px solid #dfe8df;border-radius:10px;font:inherit}
+.impact-full{grid-column:1/-1}.impact-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.impact-message{margin-top:14px;padding:12px 14px;border-radius:12px;background:#edf6e8;font-size:.84rem;display:none}
+.mini-bars{display:flex;align-items:flex-end;gap:10px;height:190px;margin-top:20px;padding:0 8px 5px;border-bottom:1px solid #dfe8df}
+.mini-bar-col{height:100%;flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px}
+.mini-bar{width:100%;max-width:48px;border-radius:8px 8px 2px 2px;background:linear-gradient(180deg,#8fbe63,#16794c);min-height:4px}
+.mini-bar-label{font-size:.7rem;color:var(--muted);text-align:center}.mini-bar-value{font-size:.72rem;font-weight:800}
+@media(max-width:760px){.impact-dashboard{grid-template-columns:1fr}.impact-form{grid-template-columns:1fr}.impact-full{grid-column:auto}}
 </style>
 </head>
 <body>
@@ -131,7 +149,7 @@
 <section id="equipo">
   <div class="container">
     <span class="kicker">Nivel 4 · Trabajo colaborativo</span>
-    <h2>Forma tu equipo ambiental.</h2>
+    <h2>Forma tu equipo y mide su impacto ambiental.</h2>
     <p class="lead">Selecciona compañeros de tus coincidencias, elige un reto y convierte las habilidades del equipo en una propuesta ambiental.</p>
 
     <div class="team-builder">
@@ -195,6 +213,61 @@
 </div></div></section>
 <section><div class="container"><div class="cta"><h2 style="margin-top:0">Descubre tu talento y conviértelo en acción 🌱</h2><p>“Descubre tu talento, conecta con quienes te complementan y juntos transformen Junín.”</p><button class="btn secondary" id="startQuiz2">🌟 Probar el cuestionario</button></div></div></section>
 
+
+<section id="impacto-real">
+  <div class="container">
+    <span class="kicker">Nivel 5 · Impacto</span>
+    <h2>Mide lo que tu equipo logra.</h2>
+    <p class="lead">Registra resultados de tu proyecto ambiental y observa cómo una idea se convierte en evidencia de cambio.</p>
+
+    <div class="impact-dashboard">
+      <div class="impact-card">
+        <div class="profile">
+          <div class="avatar">📊</div>
+          <div>
+            <strong>Panel de impacto</strong>
+            <div id="impactProjectLabel" style="color:var(--muted);font-size:.86rem">Tu proyecto aparecerá aquí</div>
+          </div>
+        </div>
+
+        <div class="metric-grid">
+          <div class="metric"><div class="metric-icon">♻️</div><div class="metric-value" id="mWaste">0</div><div class="metric-label">kg de residuos recuperados</div></div>
+          <div class="metric"><div class="metric-icon">💧</div><div class="metric-value" id="mWater">0</div><div class="metric-label">litros de agua ahorrados</div></div>
+          <div class="metric"><div class="metric-icon">🌳</div><div class="metric-value" id="mGreen">0</div><div class="metric-label">plantas o árboles cuidados</div></div>
+          <div class="metric"><div class="metric-icon">👥</div><div class="metric-value" id="mPeople">0</div><div class="metric-label">participantes</div></div>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress-label"><span>Avance del proyecto</span><span id="mProgressText">0%</span></div>
+          <div class="progress-track"><span id="mProgress"></span></div>
+        </div>
+
+        <div class="impact-form">
+          <div class="impact-field"><label>♻️ Residuos recuperados (kg)</label><input id="iWaste" type="number" min="0" step="0.1" placeholder="0"></div>
+          <div class="impact-field"><label>💧 Agua ahorrada (L)</label><input id="iWater" type="number" min="0" step="1" placeholder="0"></div>
+          <div class="impact-field"><label>🌳 Plantas/árboles cuidados</label><input id="iGreen" type="number" min="0" step="1" placeholder="0"></div>
+          <div class="impact-field"><label>👥 Participantes</label><input id="iPeople" type="number" min="0" step="1" placeholder="0"></div>
+          <div class="impact-field impact-full"><label>📈 Porcentaje de avance</label><input id="iProgress" type="number" min="0" max="100" step="1" placeholder="0"></div>
+        </div>
+
+        <div class="impact-actions">
+          <button class="btn primary small-btn" id="saveImpact">💾 Guardar impacto</button>
+          <button class="btn small-btn" id="resetImpact">↺ Reiniciar datos</button>
+        </div>
+        <div class="impact-message" id="impactMessage"></div>
+      </div>
+
+      <div class="impact-card">
+        <div class="profile">
+          <div class="avatar">📈</div>
+          <div><strong>Visualización del avance</strong><div style="color:var(--muted);font-size:.86rem">Comparación de tus indicadores</div></div>
+        </div>
+        <div class="mini-bars" id="impactBars"></div>
+        <p style="font-size:.8rem;color:var(--muted);margin-top:14px">Los datos se guardan únicamente en este navegador en esta versión del prototipo.</p>
+      </div>
+    </div>
+  </div>
+</section>
 <footer><div class="container footerin"><div><strong>🌱 EQUA AI</strong><br>Conectando talentos para transformar nuestro ambiente.</div><div>Proyecto educativo · Región Junín, Perú<br><small>Prototipo académico de Educación para el Trabajo</small></div></div></footer>
 
 <dialog id="quiz"><div class="modal"><button class="close" id="close">×</button>
@@ -426,6 +499,76 @@ document.getElementById('generatePlan').addEventListener('click',()=>{
 });
 
 renderTeam();
+
+// ===== NIVEL 5: PANEL DE IMPACTO =====
+const impactDefaults = {waste:0, water:0, green:0, people:0, progress:0};
+
+function loadImpact(){
+  try { return {...impactDefaults, ...(JSON.parse(localStorage.getItem('equaImpact')||'null')||{})}; }
+  catch(e){ return {...impactDefaults}; }
+}
+
+function saveImpactData(data){
+  localStorage.setItem('equaImpact', JSON.stringify(data));
+}
+
+function renderImpact(){
+  const data=loadImpact();
+  const project=JSON.parse(localStorage.getItem('equaProject')||'null');
+
+  document.getElementById('mWaste').textContent=Number(data.waste||0).toLocaleString('es-PE');
+  document.getElementById('mWater').textContent=Number(data.water||0).toLocaleString('es-PE');
+  document.getElementById('mGreen').textContent=Number(data.green||0).toLocaleString('es-PE');
+  document.getElementById('mPeople').textContent=Number(data.people||0).toLocaleString('es-PE');
+  document.getElementById('mProgressText').textContent=`${Number(data.progress||0)}%`;
+  document.getElementById('mProgress').style.width=`${Math.max(0,Math.min(100,Number(data.progress)||0))}%`;
+  document.getElementById('impactProjectLabel').textContent=project?.name ? `${project.name} · ${project.reto||'Reto ambiental'}` : 'Crea un proyecto en el Nivel 4 para vincularlo aquí';
+
+  document.getElementById('iWaste').value=data.waste||'';
+  document.getElementById('iWater').value=data.water||'';
+  document.getElementById('iGreen').value=data.green||'';
+  document.getElementById('iPeople').value=data.people||'';
+  document.getElementById('iProgress').value=data.progress||'';
+
+  const items=[
+    ['♻️','Residuos',Number(data.waste)||0],
+    ['💧','Agua',Number(data.water)||0],
+    ['🌳','Verde',Number(data.green)||0],
+    ['👥','Personas',Number(data.people)||0]
+  ];
+  const max=Math.max(...items.map(x=>x[2]),1);
+  document.getElementById('impactBars').innerHTML=items.map(x=>`
+    <div class="mini-bar-col">
+      <div class="mini-bar-value">${x[2]}</div>
+      <div class="mini-bar" style="height:${Math.max(4,(x[2]/max)*145)}px"></div>
+      <div class="mini-bar-label">${x[0]} ${x[1]}</div>
+    </div>`).join('');
+}
+
+function readNum(id){
+  const n=parseFloat(document.getElementById(id).value);
+  return Number.isFinite(n) && n>=0 ? n : 0;
+}
+
+document.getElementById('saveImpact').addEventListener('click',()=>{
+  const progress=Math.min(100,readNum('iProgress'));
+  const data={waste:readNum('iWaste'),water:readNum('iWater'),green:readNum('iGreen'),people:readNum('iPeople'),progress};
+  saveImpactData(data);
+  renderImpact();
+  const msg=document.getElementById('impactMessage');
+  msg.style.display='block';
+  msg.textContent=`✅ Impacto guardado. Tu proyecto registra ${progress}% de avance.`;
+});
+
+document.getElementById('resetImpact').addEventListener('click',()=>{
+  saveImpactData(impactDefaults);
+  renderImpact();
+  const msg=document.getElementById('impactMessage');
+  msg.style.display='block';
+  msg.textContent='↺ Los indicadores fueron reiniciados en este navegador.';
+});
+
+renderImpact();
 </script>
 </body>
 </html>
