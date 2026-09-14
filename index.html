@@ -49,6 +49,22 @@
 .match-card:last-child{border-bottom:0}.match-info{flex:1}.match-title{font-weight:800}.match-desc{display:block;color:var(--muted);font-size:.82rem;margin-top:4px}
 .match-score{font-weight:900;color:#087443;font-size:1.05rem}.match-bar{height:7px;background:#edf1ec;border-radius:99px;margin-top:8px;overflow:hidden}.match-bar>span{display:block;height:100%;background:linear-gradient(90deg,#16794c,#8fbe63);border-radius:99px}
 .why-btn{border:1px solid #dfe8df;background:#fff;padding:8px 11px;border-radius:10px;font:inherit;font-size:.76rem;font-weight:700;cursor:pointer;margin-top:8px}
+
+.team-builder{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
+.team-box{border:1px solid #e1e9e1;border-radius:16px;padding:18px;background:#fff}
+.team-member{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #edf0ed}
+.team-member:last-child{border-bottom:0}
+.member-avatar{width:38px;height:38px;border-radius:12px;background:#edf6e8;display:grid;place-items:center;font-size:1.15rem}
+.member-meta{flex:1}.member-name{font-weight:800}.member-role{font-size:.78rem;color:var(--muted)}
+.team-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.reto-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+.reto-option{border:1px solid #dfe8df;background:#f8faf7;padding:13px;border-radius:13px;text-align:left;cursor:pointer;font:inherit}
+.reto-option.active{border-color:#16794c;background:#edf6e8;box-shadow:0 0 0 2px rgba(22,121,76,.08)}
+.project-box{margin-top:18px;padding:18px;border-radius:16px;background:#f3f8ef;border:1px solid #dfead9}
+.project-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.field-label{display:block;font-size:.78rem;font-weight:800;margin-bottom:5px}
+.team-empty{padding:22px 8px;text-align:center;color:var(--muted);font-size:.88rem}
+@media(max-width:760px){.team-builder,.project-row{grid-template-columns:1fr}.reto-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -90,7 +106,7 @@
 <article class="card challenge"><span class="emoji">🌎</span><div><span class="badge">JUNÍN</span><h3>Reto Junín sostenible</h3><p>Investiga un problema ambiental de tu comunidad y plantea una solución.</p></div></article>
 </div></div></section>
 
-<section id="demo" class="demo"><div class="container"><div class="section-head"><span class="kicker">Prototipo interactivo</span><h2>Así podría verse EQUA AI por dentro</h2><p>Crea tu perfil y descubre cómo EQUA AI podría comparar fortalezas, intereses y roles para sugerir compañeros complementarios. Las coincidencias son una simulación educativa y los datos permanecen solo en tu navegador.</p></div>
+<section id="demo" class="demo"><div class="container"><div class="section-head"><span class="kicker">Prototipo interactivo</span><h2>Así podría verse EQUA AI por dentro</h2><p>Crea tu perfil, descubre coincidencias y forma un equipo ambiental. En este nivel podrás elegir compañeros, seleccionar un reto y generar una primera estructura de proyecto.</p></div>
 <div class="app">
   <div class="panel" id="profilePanel">
   <div class="profile"><div class="avatar">👩‍🎓</div><div><p class="profile-name" id="profileName">Tu perfil estudiantil</p><div class="profile-sub" id="profileMeta">Completa el cuestionario · EQUA AI</div></div></div>
@@ -112,6 +128,56 @@
     <p class="profile-note">💡 La compatibilidad es una simulación educativa. En una versión futura, un algoritmo real podría comparar intereses, fortalezas y roles para formar equipos complementarios.</p>
   </div>
 </div></div></section>
+<section id="equipo">
+  <div class="container">
+    <span class="kicker">Nivel 4 · Trabajo colaborativo</span>
+    <h2>Forma tu equipo ambiental.</h2>
+    <p class="lead">Selecciona compañeros de tus coincidencias, elige un reto y convierte las habilidades del equipo en una propuesta ambiental.</p>
+
+    <div class="team-builder">
+      <div class="team-box">
+        <div class="profile">
+          <div class="avatar">👥</div>
+          <div><strong>Mi equipo</strong><div style="color:var(--muted);font-size:.86rem">Máximo 4 integrantes</div></div>
+        </div>
+        <div id="teamList"></div>
+        <div class="team-actions">
+          <button class="btn primary small-btn" id="addBestMatch">🤝 Añadir mejor coincidencia</button>
+          <button class="btn small-btn" id="clearTeam">↺ Reiniciar equipo</button>
+        </div>
+      </div>
+
+      <div class="team-box">
+        <div class="profile">
+          <div class="avatar">🌎</div>
+          <div><strong>Elige un reto ambiental</strong><div style="color:var(--muted);font-size:.86rem">Un problema para trabajar en equipo</div></div>
+        </div>
+        <div class="reto-grid" id="retoGrid">
+          <button class="reto-option" data-reto="Manejo de residuos">♻️<br><strong>Manejo de residuos</strong><br><small>Reducir, reutilizar y reciclar.</small></button>
+          <button class="reto-option" data-reto="Cuidado del agua">💧<br><strong>Cuidado del agua</strong><br><small>Promover el uso responsable.</small></button>
+          <button class="reto-option" data-reto="Áreas verdes">🌳<br><strong>Áreas verdes</strong><br><small>Cuidar y recuperar espacios.</small></button>
+          <button class="reto-option" data-reto="Participación ambiental">🌎<br><strong>Participación ambiental</strong><br><small>Motivar acciones de la comunidad.</small></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-box" id="projectBox">
+      <strong>🚀 Construye tu proyecto</strong>
+      <p id="projectIntro" style="color:var(--muted);margin-bottom:0">Primero crea un equipo y selecciona un reto. EQUA AI propondrá una estructura inicial.</p>
+      <div id="projectForm" style="display:none">
+        <div class="project-row">
+          <div><label class="field-label">Nombre del proyecto</label><input class="field" id="projectName" placeholder="Ej.: Guardianes del agua de Santa Bárbara"></div>
+          <div><label class="field-label">Meta principal</label><input class="field" id="projectGoal" placeholder="Ej.: Reducir el desperdicio de agua"></div>
+        </div>
+        <div class="team-actions">
+          <button class="btn primary small-btn" id="generatePlan">✨ Generar plan del equipo</button>
+        </div>
+        <div id="planResult" class="result"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section id="impacto"><div class="container"><div class="section-head"><span class="kicker">Impacto</span><h2>Lo que queremos medir</h2><p>La plataforma puede registrar evidencias y resultados para demostrar que las conexiones entre estudiantes se convierten en acciones concretas.</p></div>
 <div class="impact"><div class="metric"><strong>120 kg</strong><span>residuos recuperados · ejemplo</span></div><div class="metric"><strong>85</strong><span>estudiantes involucrados · ejemplo</span></div><div class="metric"><strong>4</strong><span>áreas verdes mejoradas · ejemplo</span></div><div class="metric"><strong>2</strong><span>campañas realizadas · ejemplo</span></div></div>
@@ -260,6 +326,106 @@ function renderMatches(){
 }
 renderMatches();
 window.addEventListener('storage', renderMatches);
+
+// ===== NIVEL 4: EQUIPOS =====
+let selectedTeam = JSON.parse(localStorage.getItem('equaTeam') || '[]');
+let selectedReto = localStorage.getItem('equaReto') || '';
+
+const teamCandidates = [
+  {name:'Diego', talent:'Tecnología', role:'Análisis de datos', icon:'💻'},
+  {name:'Valeria', talent:'Creatividad', role:'Diseño y comunicación', icon:'🎨'},
+  {name:'Lucía', talent:'Ciencias', role:'Investigación', icon:'🔬'}
+];
+
+function getSavedProfile(){
+  return JSON.parse(localStorage.getItem('equaProfile') || 'null');
+}
+
+function renderTeam(){
+  const box = document.getElementById('teamList');
+  const profile = getSavedProfile();
+  let members = [];
+  if(profile) members.push({name:profile.name || 'Tú', talent:profile.skill || 'Fortaleza', role:profile.role || 'Integrante', icon:'👩‍🎓', me:true});
+  selectedTeam.forEach(name=>{
+    const c=teamCandidates.find(x=>x.name===name);
+    if(c) members.push(c);
+  });
+  if(!members.length){
+    box.innerHTML='<div class="team-empty">Crea primero tu perfil para empezar a formar un equipo.</div>';
+  }else{
+    box.innerHTML=members.map(m=>`<div class="team-member"><div class="member-avatar">${m.icon}</div><div class="member-meta"><div class="member-name">${m.name}${m.me?' · Tú':''}</div><div class="member-role">${m.talent} · ${m.role}</div></div>${m.me?'':'<button class="why-btn remove-member" data-name="'+m.name+'">Quitar</button>'}</div>`).join('');
+    document.querySelectorAll('.remove-member').forEach(b=>b.addEventListener('click',()=>{
+      selectedTeam=selectedTeam.filter(x=>x!==b.dataset.name); saveTeam(); renderTeam(); updateProject();
+    }));
+  }
+  updateProject();
+}
+
+function saveTeam(){ localStorage.setItem('equaTeam',JSON.stringify(selectedTeam)); }
+
+function addBestMatch(){
+  if(!getSavedProfile()){
+    alert('Primero crea tu perfil en “Crear / actualizar mi perfil”.');
+    return;
+  }
+  const available=teamCandidates.filter(c=>!selectedTeam.includes(c.name));
+  if(selectedTeam.length>=3 || !available.length){
+    alert('Tu equipo ya tiene el máximo de 4 integrantes contando contigo.');
+    return;
+  }
+  selectedTeam.push(available[0].name);
+  saveTeam(); renderTeam();
+}
+
+function updateProject(){
+  const profile=getSavedProfile();
+  const form=document.getElementById('projectForm');
+  const intro=document.getElementById('projectIntro');
+  if(profile && selectedTeam.length && selectedReto){
+    form.style.display='block';
+    intro.textContent=`Equipo listo: ${selectedTeam.length+1} integrante(s). Reto seleccionado: ${selectedReto}.`;
+  }else{
+    form.style.display='none';
+    intro.textContent='Primero crea un equipo y selecciona un reto. EQUA AI propondrá una estructura inicial.';
+  }
+}
+
+document.querySelectorAll('.reto-option').forEach(btn=>{
+  if(btn.dataset.reto===selectedReto) btn.classList.add('active');
+  btn.addEventListener('click',()=>{
+    selectedReto=btn.dataset.reto;
+    localStorage.setItem('equaReto',selectedReto);
+    document.querySelectorAll('.reto-option').forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active');
+    updateProject();
+  });
+});
+
+document.getElementById('addBestMatch').addEventListener('click',addBestMatch);
+document.getElementById('clearTeam').addEventListener('click',()=>{
+  selectedTeam=[]; saveTeam(); renderTeam();
+});
+
+document.getElementById('generatePlan').addEventListener('click',()=>{
+  const profile=getSavedProfile();
+  const name=document.getElementById('projectName').value.trim() || `Proyecto ${selectedReto}`;
+  const goal=document.getElementById('projectGoal').value.trim() || `Mejorar ${selectedReto.toLowerCase()} en nuestra comunidad escolar`;
+  const members=[{name:profile?.name||'Tú',talent:profile?.skill||'Fortaleza',role:profile?.role||'Integrante'},...selectedTeam.map(n=>teamCandidates.find(c=>c.name===n))];
+  const tasks = [
+    ['1. Investigar','Identificar causas, evidencias y necesidades relacionadas con el reto.',members[0]?.name],
+    ['2. Diseñar','Proponer una solución concreta, creativa y viable.',members.find(m=>m.talent==='Creatividad')?.name || members[0]?.name],
+    ['3. Organizar','Definir materiales, actividades, fechas y responsables.',members.find(m=>m.talent==='Tecnología')?.name || members[0]?.name],
+    ['4. Comunicar y evaluar','Presentar la propuesta y medir qué cambió.',members.find(m=>m.talent==='Comunicación')?.name || members[0]?.name]
+  ];
+  const result=document.getElementById('planResult');
+  result.style.display='block';
+  result.innerHTML=`<strong>🌱 ${name}</strong><br><span style="color:var(--muted)">Reto: ${selectedReto} · Meta: ${goal}</span><hr style="border:0;border-top:1px solid #dfead9;margin:12px 0">`+
+    tasks.map(t=>`<div style="margin:9px 0"><strong>${t[0]}</strong><br><span style="font-size:.84rem;color:var(--muted)">${t[1]}</span><br><small>Responsable sugerido: <strong>${t[2]||'Por definir'}</strong></small></div>`).join('')+
+    `<p style="font-size:.78rem;color:var(--muted);margin-bottom:0">💡 Este plan es una propuesta inicial del prototipo. El equipo puede modificar responsables, actividades y metas.</p>`;
+  localStorage.setItem('equaProject',JSON.stringify({name,goal,reto:selectedReto,members}));
+});
+
+renderTeam();
 </script>
 </body>
 </html>

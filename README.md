@@ -1,10 +1,12 @@
-# EQUA AI v4 — Nivel 3
+# EQUA AI v5 — Nivel 4
 
-Sistema de coincidencias simulado para el prototipo escolar.
+Módulo de trabajo colaborativo del prototipo escolar.
 
-- Lee el perfil guardado localmente.
-- Calcula porcentajes simulados según interés, fortalezas y rol.
-- Prioriza capacidades complementarias.
-- Permite ver una explicación de cada coincidencia.
+- Forma un equipo de hasta 4 integrantes.
+- Añade compañeros de las coincidencias.
+- Selecciona un reto ambiental.
+- Define nombre y meta del proyecto.
+- Genera un plan inicial con investigación, diseño, organización y evaluación.
+- Guarda equipo, reto y proyecto localmente en el navegador.
 
-No usa una API de IA ni una base de datos: es una demostración funcional del concepto.
+La generación del plan es una simulación local; no usa una API externa ni una base de datos.
