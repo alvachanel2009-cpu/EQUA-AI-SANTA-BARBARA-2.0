@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://TU-DOMINIO-AQUI/sitemap.xml
+Sitemap: https://alvachanel2009-cpu.github.io/EQUA-AI-SANTA-BARBARA-2.0/sitemap.xml
