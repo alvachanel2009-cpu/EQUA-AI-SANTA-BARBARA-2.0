@@ -1,15 +1,13 @@
-# EQUA AI v6 — Nivel 5
+# EQUA AI v7 — Nivel 6
 
-Panel de impacto ambiental para el prototipo escolar.
+Módulo de retos ambientales reales.
 
 Funciones:
-- Registra kg de residuos recuperados.
-- Registra litros de agua ahorrados.
-- Registra plantas o árboles cuidados.
-- Registra participantes.
-- Registra porcentaje de avance.
-- Muestra indicadores y una visualización de barras.
-- Vincula el panel con el proyecto creado en el Nivel 4.
-- Guarda los datos en localStorage del navegador.
+- Selecciona una categoría de problema ambiental.
+- Registra título, lugar, prioridad y descripción.
+- Permite adjuntar una fotografía como evidencia.
+- Guarda hasta 12 retos localmente en el navegador.
+- Permite convertir un reto registrado en el reto del equipo.
+- Se integra con el flujo del Nivel 4 y el panel de impacto del Nivel 5.
 
-Nota: esta versión es un prototipo local. Para que los datos de distintos estudiantes se compartan, el siguiente paso sería incorporar una base de datos y autenticación.
+Nota: la evidencia fotográfica y los registros son locales. No existe todavía una base de datos compartida entre estudiantes.

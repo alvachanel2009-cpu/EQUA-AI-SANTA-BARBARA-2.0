@@ -83,6 +83,27 @@
 .mini-bar{width:100%;max-width:48px;border-radius:8px 8px 2px 2px;background:linear-gradient(180deg,#8fbe63,#16794c);min-height:4px}
 .mini-bar-label{font-size:.7rem;color:var(--muted);text-align:center}.mini-bar-value{font-size:.72rem;font-weight:800}
 @media(max-width:760px){.impact-dashboard{grid-template-columns:1fr}.impact-form{grid-template-columns:1fr}.impact-full{grid-column:auto}}
+
+.real-challenge{display:grid;grid-template-columns:.95fr 1.05fr;gap:18px;margin-top:22px}
+.challenge-card,.report-card{background:#fff;border:1px solid #e1e9e1;border-radius:16px;padding:20px}
+.challenge-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+.challenge-option{border:1px solid #dfe8df;background:#f8faf7;padding:13px;border-radius:13px;text-align:left;cursor:pointer;font:inherit}
+.challenge-option.active{border-color:#16794c;background:#edf6e8;box-shadow:0 0 0 2px rgba(22,121,76,.08)}
+.report-form{margin-top:14px}.report-form label{display:block;font-size:.78rem;font-weight:800;margin:12px 0 5px}
+.report-form input,.report-form textarea,.report-form select{width:100%;box-sizing:border-box;padding:10px;border:1px solid #dfe8df;border-radius:10px;font:inherit;background:#fff}
+.report-form textarea{min-height:92px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.photo-preview{margin-top:10px;min-height:80px;border:1px dashed #cfdacf;border-radius:12px;display:grid;place-items:center;color:var(--muted);font-size:.8rem;overflow:hidden}
+.photo-preview img{display:block;max-width:100%;max-height:180px;object-fit:cover}
+.report-list{margin-top:12px;display:grid;gap:10px;max-height:420px;overflow:auto;padding-right:3px}
+.report-item{border:1px solid #e5ece4;border-radius:13px;padding:14px;background:#fbfcfa}
+.report-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.status{font-size:.7rem;font-weight:800;padding:5px 8px;border-radius:99px;background:#edf6e8;color:#16794c;white-space:nowrap}
+.report-meta{font-size:.75rem;color:var(--muted);margin-top:5px}.report-desc{font-size:.84rem;margin-top:9px;line-height:1.45}
+.report-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.empty-reports{padding:30px 8px;text-align:center;color:var(--muted);font-size:.86rem}
+.evidence-note{font-size:.76rem;color:var(--muted);margin-top:9px}
+@media(max-width:760px){.real-challenge{grid-template-columns:1fr}.challenge-grid,.form-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -214,6 +235,72 @@
 <section><div class="container"><div class="cta"><h2 style="margin-top:0">Descubre tu talento y conviértelo en acción 🌱</h2><p>“Descubre tu talento, conecta con quienes te complementan y juntos transformen Junín.”</p><button class="btn secondary" id="startQuiz2">🌟 Probar el cuestionario</button></div></div></section>
 
 
+
+<section id="retos-reales">
+  <div class="container">
+    <span class="kicker">Nivel 6 · Comunidad</span>
+    <h2>Convierte un problema real en un reto.</h2>
+    <p class="lead">Identifica una situación ambiental cercana, registra evidencia y crea una ficha que pueda convertirse en un proyecto de acción.</p>
+
+    <div class="real-challenge">
+      <div class="challenge-card">
+        <div class="profile">
+          <div class="avatar">📍</div>
+          <div><strong>1. Elige el tipo de problema</strong><div style="color:var(--muted);font-size:.86rem">Selecciona el reto que quieres reportar</div></div>
+        </div>
+
+        <div class="challenge-grid" id="challengeGrid">
+          <button class="challenge-option" data-category="Residuos">♻️<br><strong>Residuos</strong><br><small>Basura, reciclaje o puntos críticos.</small></button>
+          <button class="challenge-option" data-category="Agua">💧<br><strong>Agua</strong><br><small>Desperdicio, fugas o contaminación.</small></button>
+          <button class="challenge-option" data-category="Áreas verdes">🌳<br><strong>Áreas verdes</strong><br><small>Espacios deteriorados o sin cuidado.</small></button>
+          <button class="challenge-option" data-category="Participación">🌎<br><strong>Participación</strong><br><small>Falta de acciones o compromiso.</small></button>
+        </div>
+
+        <div class="report-form">
+          <label for="reportTitle">Título del problema</label>
+          <input id="reportTitle" placeholder="Ej.: Residuos acumulados cerca del patio">
+
+          <div class="form-row">
+            <div>
+              <label for="reportPlace">Lugar</label>
+              <input id="reportPlace" placeholder="Ej.: Patio de la institución">
+            </div>
+            <div>
+              <label for="reportUrgency">Prioridad</label>
+              <select id="reportUrgency">
+                <option value="Media">Media</option>
+                <option value="Alta">Alta</option>
+                <option value="Baja">Baja</option>
+              </select>
+            </div>
+          </div>
+
+          <label for="reportDescription">¿Qué está ocurriendo?</label>
+          <textarea id="reportDescription" placeholder="Describe el problema, sus posibles causas y a quién afecta."></textarea>
+
+          <label for="reportPhoto">📸 Evidencia fotográfica (opcional)</label>
+          <input id="reportPhoto" type="file" accept="image/*">
+          <div class="photo-preview" id="photoPreview">La fotografía seleccionada se mostrará aquí.</div>
+          <div class="evidence-note">La imagen se procesa solo en tu navegador en este prototipo; no se sube a un servidor.</div>
+
+          <div class="team-actions">
+            <button class="btn primary small-btn" id="saveReport">📍 Registrar reto</button>
+            <button class="btn small-btn" id="clearReportForm">Limpiar</button>
+          </div>
+          <div class="impact-message" id="reportMessage"></div>
+        </div>
+      </div>
+
+      <div class="report-card">
+        <div class="profile">
+          <div class="avatar">🗂️</div>
+          <div><strong>Retos registrados</strong><div style="color:var(--muted);font-size:.86rem">Problemas identificados por la comunidad</div></div>
+        </div>
+        <div id="reportsList" class="report-list"></div>
+      </div>
+    </div>
+  </div>
+</section>
 <section id="impacto-real">
   <div class="container">
     <span class="kicker">Nivel 5 · Impacto</span>
@@ -569,6 +656,114 @@ document.getElementById('resetImpact').addEventListener('click',()=>{
 });
 
 renderImpact();
+
+// ===== NIVEL 6: RETOS REALES =====
+let selectedChallenge = localStorage.getItem('equaChallengeCategory') || '';
+let reports = JSON.parse(localStorage.getItem('equaReports') || '[]');
+let currentPhotoData = '';
+
+function saveReports(){ localStorage.setItem('equaReports', JSON.stringify(reports)); }
+
+function renderReports(){
+  const list=document.getElementById('reportsList');
+  if(!reports.length){
+    list.innerHTML='<div class="empty-reports">🌱 Todavía no hay retos registrados.<br>Identifica el primer problema de tu comunidad.</div>';
+    return;
+  }
+  list.innerHTML=reports.map((r,i)=>`
+    <div class="report-item">
+      <div class="report-head">
+        <div><strong>${escapeHtml(r.title)}</strong><div class="report-meta">${r.category} · ${escapeHtml(r.place)} · ${r.date}</div></div>
+        <span class="status">${r.urgency}</span>
+      </div>
+      <div class="report-desc">${escapeHtml(r.description)}</div>
+      ${r.photo?`<img src="${r.photo}" alt="Evidencia del reto" style="width:100%;max-height:150px;object-fit:cover;border-radius:10px;margin-top:10px">`:''}
+      <div class="report-actions">
+        <button class="why-btn use-challenge" data-index="${i}">🎯 Convertir en reto de equipo</button>
+        <button class="why-btn delete-report" data-index="${i}">Eliminar</button>
+      </div>
+    </div>`).join('');
+
+  document.querySelectorAll('.use-challenge').forEach(btn=>btn.addEventListener('click',()=>{
+    const r=reports[Number(btn.dataset.index)];
+    localStorage.setItem('equaReto', r.category==='Residuos'?'Manejo de residuos':r.category==='Agua'?'Cuidado del agua':r.category==='Áreas verdes'?'Áreas verdes':'Participación ambiental');
+    alert(`🎯 Reto seleccionado: ${r.title}. Ahora puedes ir a “Equipo” para continuar con el proyecto.`);
+    const eq=document.getElementById('equipo'); if(eq) eq.scrollIntoView({behavior:'smooth'});
+  }));
+  document.querySelectorAll('.delete-report').forEach(btn=>btn.addEventListener('click',()=>{
+    reports.splice(Number(btn.dataset.index),1); saveReports(); renderReports();
+  }));
+}
+
+function escapeHtml(value){
+  return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+}
+
+document.querySelectorAll('.challenge-option').forEach(btn=>{
+  if(btn.dataset.category===selectedChallenge) btn.classList.add('active');
+  btn.addEventListener('click',()=>{
+    selectedChallenge=btn.dataset.category;
+    localStorage.setItem('equaChallengeCategory',selectedChallenge);
+    document.querySelectorAll('.challenge-option').forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+document.getElementById('reportPhoto').addEventListener('change',(event)=>{
+  const file=event.target.files?.[0];
+  currentPhotoData='';
+  const preview=document.getElementById('photoPreview');
+  if(!file){ preview.textContent='La fotografía seleccionada se mostrará aquí.'; return; }
+  if(file.size>2.5*1024*1024){
+    preview.textContent='La imagen supera 2.5 MB. Elige una imagen más pequeña.';
+    event.target.value='';
+    return;
+  }
+  const reader=new FileReader();
+  reader.onload=()=>{ currentPhotoData=reader.result; preview.innerHTML=`<img src="${currentPhotoData}" alt="Vista previa de evidencia">`; };
+  reader.readAsDataURL(file);
+});
+
+document.getElementById('saveReport').addEventListener('click',()=>{
+  const title=document.getElementById('reportTitle').value.trim();
+  const place=document.getElementById('reportPlace').value.trim();
+  const description=document.getElementById('reportDescription').value.trim();
+  const urgency=document.getElementById('reportUrgency').value;
+  const msg=document.getElementById('reportMessage');
+
+  if(!selectedChallenge || !title || !place || !description){
+    msg.style.display='block';
+    msg.textContent='⚠️ Selecciona una categoría y completa título, lugar y descripción.';
+    return;
+  }
+
+  reports.unshift({
+    category:selectedChallenge,title,place,description,urgency,
+    photo:currentPhotoData,date:new Date().toLocaleDateString('es-PE')
+  });
+  reports=reports.slice(0,12);
+  saveReports(); renderReports();
+
+  msg.style.display='block';
+  msg.textContent='✅ Reto registrado. Ahora puede convertirse en un proyecto de equipo.';
+  document.getElementById('reportTitle').value='';
+  document.getElementById('reportPlace').value='';
+  document.getElementById('reportDescription').value='';
+  document.getElementById('reportPhoto').value='';
+  currentPhotoData='';
+  document.getElementById('photoPreview').textContent='La fotografía seleccionada se mostrará aquí.';
+});
+
+document.getElementById('clearReportForm').addEventListener('click',()=>{
+  document.getElementById('reportTitle').value='';
+  document.getElementById('reportPlace').value='';
+  document.getElementById('reportDescription').value='';
+  document.getElementById('reportPhoto').value='';
+  currentPhotoData='';
+  document.getElementById('photoPreview').textContent='La fotografía seleccionada se mostrará aquí.';
+});
+
+renderReports();
 </script>
 </body>
 </html>
